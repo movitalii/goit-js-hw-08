@@ -5,7 +5,7 @@ const form = document.querySelector('.feedback-form');
 
 const STORAGE_KEY = "feedback-form-state";
 
-const formData = {};
+let formData = {};
 
 fillForm();
 
@@ -25,21 +25,21 @@ function onFormSubmit(event) {
     const messageJson = localStorage.getItem(STORAGE_KEY);
     const savedMassage = JSON.parse(messageJson);
 
-    if (savedMassage) {
-        console.log(savedMassage);
-    }    
-
-    event.currentTarget.reset();
-    localStorage.removeItem(STORAGE_KEY);    
+    if (form.email.value === '' || form.message.value === '') {
+        alert('All inputs muct be filled');
+    } else if (savedMassage) {
+        console.log(savedMassage); 
+        event.currentTarget.reset();
+        localStorage.removeItem(STORAGE_KEY); 
+        formData = {};
+    }   
 }
 
 function fillForm() {
-    const messageJson = localStorage.getItem(STORAGE_KEY);
-
-    const savedMassage = JSON.parse(messageJson);
-
-    if (savedMassage) {
-        form.message.value = savedMassage.message;
-        form.email.value = savedMassage.email;
-    }
+  const savedMassage = localStorage.getItem(STORAGE_KEY);
+  if (savedMassage) {
+    formData = JSON.parse(savedMassage);
+    form.email.value = formData.email || '';
+    form.message.value = formData.message || '';
+  }
 }
