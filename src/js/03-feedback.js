@@ -26,7 +26,7 @@ function onFormSubmit(event) {
     const savedMassage = JSON.parse(messageJson);
 
     if (form.email.value === '' || form.message.value === '') {
-        alert('All inputs muct be filled');
+        alert('All fields must be filled');
     } else if (savedMassage) {
         console.log(savedMassage); 
         event.currentTarget.reset();
